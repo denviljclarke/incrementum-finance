@@ -187,6 +187,7 @@ interface DropdownItem {
 interface ItemWithDropdownProps {
   variant: "desktop" | "mobile";
   dropdownItems: DropdownItem[];
+  children: JSX.Element;
 }
 
 const ItemWithDropdown: React.FC<ItemWithDropdownProps> = ({
