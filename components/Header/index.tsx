@@ -11,7 +11,7 @@ import { NavItemProps, MobileMenuOpenProps } from "./types";
 import theme from "../../designSystem/theme";
 import MobileOverlayMenu from "../Common/MobileOverlayMenu";
 import ItemWithDropdown from "./ItemWithDropdown";
-import { useLocation } from "react-router";
+import { useRouter } from "next/router";
 
 const HeaderContainer = styled.div<MobileMenuOpenProps>`
   height: ${theme.header.height}px;
@@ -123,9 +123,9 @@ const MobileOnly = styled.div`
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const location = useLocation();
+  const router = useRouter();
 
-  const isOnPrivateSalePage = location.pathname === "/private";
+  const isOnPrivateSalePage = router.pathname === "/private";
 
   const onToggleMenu = () => {
     if (isMobile) {
@@ -163,7 +163,7 @@ const Header = () => {
   return (
     <HeaderContainer
       isMenuOpen={isMenuOpen}
-      className='d-flex align-items-center justify-content-between'
+      className="d-flex align-items-center justify-content-between"
     >
       {/* LOGO */}
       <LogoContainer>
@@ -177,7 +177,7 @@ const Header = () => {
             {renderLinkItem("ROADMAP", "#roadmap", false)}
 
             <ItemWithDropdown
-              variant='desktop'
+              variant="desktop"
               dropdownItems={[
                 {
                   text: "Telegram",
@@ -186,7 +186,7 @@ const Header = () => {
                 { text: "Twitter", link: "https://twitter.com/moola_finance" },
               ]}
             >
-              Community
+              <>Community</>
             </ItemWithDropdown>
           </LinksContainer>
         )}
@@ -205,7 +205,7 @@ const Header = () => {
       <MobileOnly>
         <MenuButton onToggle={onToggleMenu} isOpen={isMenuOpen} />
         <MobileOverlayMenu
-          className='flex-column align-items-center justify-content-center'
+          className="flex-column align-items-center justify-content-center"
           isMenuOpen={isMenuOpen}
           onClick={onToggleMenu}
           boundingDivProps={{

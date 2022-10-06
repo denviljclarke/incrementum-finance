@@ -1,10 +1,9 @@
-import {
-  Link as ReactRouterLink,
-  LinkProps as ReactRouterLinkProps
-} from 'react-router-dom';
-import React from 'react';
+import Link, { LinkProps as NextLinkProps } from "next/link";
+import React, { ReactElement } from "react";
 
-type LinkProps = ReactRouterLinkProps;
+type LinkProps = NextLinkProps & {
+  children: ReactElement;
+};
 
 function SmoothScrollTo({
   id,
@@ -21,14 +20,14 @@ function SmoothScrollTo({
     ev.preventDefault();
     const target = document.querySelector(`${id}`);
     target?.scrollIntoView({
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   }
 
   return (
     <a
       href={`${id}`}
-      onClick={e => {
+      onClick={(e) => {
         if (props.onClick) {
           props.onClick(e);
         }
@@ -40,14 +39,11 @@ function SmoothScrollTo({
   );
 }
 
-const Link: React.FC<LinkProps> = ({ children, to, ...props }) => {
-  // Tailor the following test to your environment.
-  // This example assumes that any internal link (intended for React)
-  // will start with exactly one slash, and that anything else is external.
-  const internal = typeof to === 'string' ? /^\/(?!\/)/.test(to) : true;
-  const scrollTo = to.toString().includes('#') && to.toString().length > 1;
+const CustomLink: React.FC<LinkProps> = ({ children, href, ...props }) => {
+  const internal = typeof href === "string" ? /^\/(?!\/)/.test(href) : true;
+  const scrollTo = href.toString().includes("#") && href.toString().length > 1;
 
-  if (scrollTo && typeof to === 'string') {
+  if (scrollTo && typeof href === "string") {
     return (
       <SmoothScrollTo
         onClick={(e: any) => {
@@ -55,27 +51,27 @@ const Link: React.FC<LinkProps> = ({ children, to, ...props }) => {
             props?.onClick(e);
           }
         }}
-        id={to}
+        id={href}
       >
         {children}
       </SmoothScrollTo>
     );
   }
 
-  // Use React Router Link for internal links, and <a> for others
-  if (internal || typeof to !== 'string') {
+  // Use Next Link for internal links, and <a> for others
+  if (internal || typeof href !== "string") {
     return (
-      <ReactRouterLink to={to} {...props}>
+      <Link href={href} {...props}>
         {children}
-      </ReactRouterLink>
+      </Link>
     );
   }
 
   return (
-    <a href={to} {...props}>
+    <a href={href} {...props}>
       {children}
     </a>
   );
 };
 
-export default Link;
+export default CustomLink;
