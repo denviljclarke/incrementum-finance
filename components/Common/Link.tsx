@@ -41,7 +41,7 @@ function SmoothScrollTo({
 
 const CustomLink: React.FC<LinkProps> = ({ children, href, ...props }) => {
   const internal = typeof href === "string" ? /^\/(?!\/)/.test(href) : true;
-  const scrollTo = href.toString().includes("#") && href.toString().length > 1;
+  const scrollTo = href?.toString().includes("#") && href.toString().length > 1;
 
   if (scrollTo && typeof href === "string") {
     return (

@@ -142,9 +142,9 @@ const Header = () => {
   ) => {
     return (
       <BaseLink
-        to={to}
-        target={external ? "_blank" : undefined}
-        rel={external ? "noreferrer noopener" : undefined}
+        href={to}
+        // target={external ? "_blank" : undefined}
+        // rel={external ? "noreferrer noopener" : undefined}
         onClick={onToggleMenu}
       >
         {primary ? (

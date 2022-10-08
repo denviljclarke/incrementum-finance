@@ -134,7 +134,7 @@ const ConnectButton = () => {
 };
 
 const ProgressBarWrapper = styled.div`
-  color: ${colors.Incrementum};
+  color: ${colors.incrementum};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -155,11 +155,11 @@ const ProgressBarWrapper = styled.div`
     border-radius: 8px;
     width: 100%;
     height: 32px;
-    background: ${colors.Incrementum}29;
+    background: ${colors.incrementum}29;
   }
   progress[value]::-webkit-progress-value {
     border-radius: 8px;
-    background-color: ${colors.Incrementum};
+    background-color: ${colors.incrementum};
     height: 32px;
   }
 `;

@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import CustomLink from "../Common/Link";
 
-import { default as AppLogo } from "../../assets/icons/logo";
+// import { default as AppLogo } from "../../assets/icons/logo";
 
 const LogoContainer = styled.div`
   display: flex;
@@ -12,9 +12,7 @@ const Logo = () => {
   return (
     <>
       <LogoContainer>
-        <Link to="/">
-          <AppLogo height="48px" width="48px" />
-        </Link>
+        <CustomLink href="/">HI</CustomLink>
       </LogoContainer>
     </>
   );

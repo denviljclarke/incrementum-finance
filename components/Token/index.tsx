@@ -19,7 +19,7 @@ const MainContainer = styled(Container)`
 //   line-height: 16px;
 //   letter-spacing: 1.5px;
 //   text-transform: uppercase;
-//   color: ${colors.moola};
+//   color: ${incrementum};
 // `;
 
 const MissionTitle = styled(Title)`
@@ -77,8 +77,8 @@ const CTAButton = styled(Button)`
 const Token = () => {
   return (
     <MainContainer>
-      <Row className='d-flex justify-content-center'>
-        <Col className='d-flex justify-content-center'>
+      <Row className="d-flex justify-content-center">
+        <Col className="d-flex justify-content-center">
           <MissionTitle>
             The <TitleAlt>$MOOLA</TitleAlt> Token
           </MissionTitle>
@@ -86,7 +86,7 @@ const Token = () => {
       </Row>
       <Container>
         <MissionSubtitleRow>
-          <Col xs={12} md={8} xl={6} className='d-flex'>
+          <Col xs={12} md={8} xl={6} className="d-flex">
             <MissionSubtitle>
               The $MOOLA token is redistribution token on the Binance Smart
               Chain. Moola uses smart financial engineering to deliver rewards
@@ -96,9 +96,9 @@ const Token = () => {
               for additional rewards.
               <ButtonContainer>
                 <a
-                  href='https://github.com/TechRate/Smart-Contract-Audits/blob/main/November/Moola%20Finance.pdf'
-                  target='_blank'
-                  rel='noreferrer noopener'
+                  href="https://github.com/TechRate/Smart-Contract-Audits/blob/main/November/Moola%20Finance.pdf"
+                  target="_blank"
+                  rel="noreferrer noopener"
                 >
                   <CTAButton>View Audit</CTAButton>
                 </a>

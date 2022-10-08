@@ -63,11 +63,14 @@ const MobileOverlayMenu: React.FC<MobileOverlayMenuProps> = ({
   const { height } = useScreenSize();
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      return;
+    }
     if (!containerRef.current || !mountRoot) {
       return;
     }
 
-    document.querySelector(mountRoot)!.appendChild(containerRef.current);
+    document?.querySelector(mountRoot)!.appendChild(containerRef.current);
   }, [containerRef, mountRoot]);
 
   useEffect(() => {

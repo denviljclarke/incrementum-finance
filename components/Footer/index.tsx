@@ -1,11 +1,11 @@
-import React, { useCallback } from 'react';
-import { Col, Row } from 'react-bootstrap';
-import styled from 'styled-components';
+import React, { useCallback } from "react";
+import { Col, Row } from "react-bootstrap";
+import styled from "styled-components";
 
-import { BaseLink, Title } from '../../designSystem';
-import colors from '../../designSystem/colors';
-import sizes from '../../designSystem/sizes';
-import theme from '../../designSystem/theme';
+import { BaseLink, Title } from "../../designSystem";
+import colors from "../../designSystem/colors";
+import sizes from "../../designSystem/sizes";
+import theme from "../../designSystem/theme";
 
 const FooterContainer = styled.div`
   display: flex;
@@ -84,9 +84,9 @@ const DesktopFooter = () => {
     (title: string, to: string, external: boolean = false) => (
       <MobileFooterCol xs={6}>
         <BaseLink
-          to={to}
-          target={external ? '_blank' : undefined}
-          rel={external ? 'noreferrer noopener' : undefined}
+          href={to}
+          // target={external ? "_blank" : undefined}
+          // rel={external ? "noreferrer noopener" : undefined}
         >
           <LinkItem>
             <LinkItemText>{title}</LinkItemText>
@@ -101,31 +101,33 @@ const DesktopFooter = () => {
     <>
       <FooterContainer>
         <LeftContainer>
-          {renderLinkItem('FAQS', '/faq')}
-          {renderLinkItem('TERMS', '/terms')}
-          {renderLinkItem('POLICY', '/policy')}
+          {renderLinkItem("FAQS", "/faq")}
+          {renderLinkItem("TERMS", "/terms")}
+          {renderLinkItem("POLICY", "/policy")}
           {/* {renderLinkItem("DOCS", "#")} */}
         </LeftContainer>
-        <div className='d-flex flex-row'>
-          {renderLinkItem('PRIVATE SALE', '/private')}
-          {renderLinkItem('TELEGRAM', 'https://t.me/moolafinance', true)}
+        <div className="d-flex flex-row">
+          {renderLinkItem("PRIVATE SALE", "/private")}
+          {renderLinkItem("TELEGRAM", "https://t.me/moolafinance", true)}
           {/* {renderLinkItem("DISCORD", "#", true)} */}
-          {renderLinkItem('TWITTER', 'https://twitter.com/moola_finance', true)}
-          {renderLinkItem('GITHUB', 'https://github.com/moola-finance', true)}
+          {/* {renderLinkItem("TWITTER", "https://twitter.com/moola_finance", true)} */}
+          {renderLinkItem("GITHUB", "https://github.com/moola-finance", true)}
         </div>
       </FooterContainer>
 
       <MobileFooter>
         <MobileFooterRow>
-          {renderLinkItem('FAQS', '/faq')}
-          {renderLinkItem('TERMS', '/terms')}
-          {renderLinkItem('POLICY', '/policy')}
-          {/* {renderLinkItem("DOCS", "#")} */}
-          {renderLinkItem('PRIVATE SALE', '/private')}
-          {renderLinkItem('TELEGRAM', 'https://t.me/moolafinance', true)}
-          {/* {renderLinkItem("DISCORD", "#", true)} */}
-          {renderLinkItem('TWITTER', 'https://twitter.com/moola_finance', true)}
-          {renderLinkItem('GITHUB', 'https://github.com/moola-finance', true)}
+          {renderLinkItem("FAQS", "/faq")}
+          {renderLinkItem("TERMS", "/terms")}
+          {renderLinkItem("POLICY", "/policy")}
+          {renderLinkItem("PRIVATE SALE", "/private")}
+          {renderLinkItem("TELEGRAM", "#", true)}
+          {renderLinkItem("TWITTER", "#", true)}
+          {renderLinkItem(
+            "GITHUB",
+            "https://github.com/incrementum-finance",
+            true
+          )}
         </MobileFooterRow>
       </MobileFooter>
     </>

@@ -37,7 +37,7 @@ const MissionSubtitleRow = styled(Row)`
 const MissionPill = styled.div`
   padding: 8px 16px;
   border-radius: ${theme.border.radius};
-  background: ${colors.moola}29;
+  background: ${colors.incrementum}29;
 `;
 
 const MissionText = styled(BaseText)`
@@ -46,7 +46,7 @@ const MissionText = styled(BaseText)`
   line-height: 16px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: ${colors.moola};
+  color: ${colors.incrementum};
 `;
 
 const MissionTitle = styled(Title)`
@@ -72,22 +72,22 @@ const MissionSubtitle = styled(BaseText)`
 const Mission = () => {
   return (
     <MainContainer>
-      <div id='about' />
-      <div className='d-flex justify-content-center w-100'>
+      <div id="about" />
+      <div className="d-flex justify-content-center w-100">
         <MissionPill>
           <MissionText>Our Mission</MissionText>
         </MissionPill>
       </div>
       <MissionTitleRow>
-        <Col xs={11} lg={10} xl={6} className='d-flex'>
+        <Col xs={11} lg={10} xl={6} className="d-flex">
           <MissionTitle>Maximum gains for everyone</MissionTitle>
         </Col>
       </MissionTitleRow>
 
       <MissionSubtitleRow>
-        <Col xs={12} md={8} xl={6} className='d-flex'>
+        <Col xs={12} md={8} xl={6} className="d-flex">
           <MissionSubtitle>
-            DeFi shouldn't be so hard to understand. Traditional financial
+            DeFi shouldn&apos;t be so hard to understand. Traditional financial
             products create a layer of obscurity with complicated and confusing
             terms. This makes it harder for the average person to understand and
             benefit from the product. Our aim is to simplify DeFi to enable all

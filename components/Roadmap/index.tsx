@@ -19,7 +19,7 @@ const MainContainer = styled(Container)`
 //   line-height: 16px;
 //   letter-spacing: 1.5px;
 //   text-transform: uppercase;
-//   color: ${colors.moola};
+//   color: ${incrementum};
 // `;
 
 const MissionTitle = styled(Title)`
@@ -76,12 +76,12 @@ const TimeLineList = styled.ul`
 `;
 
 const TimeLineListItem = styled.li<{ complete?: boolean; current?: boolean }>`
-  border: ${(props) => (props?.current ? "2px solid " + colors.moola : "")};
+  border: ${(props) => (props?.current ? "2px solid " + incrementum : "")};
   /* box-shadow: ${(props) =>
-    props?.current ? "8px 16px 100px " + colors.moola : ""}; */
+    props?.current ? "8px 16px 100px " + incrementum : ""}; */
   padding: 20px;
   background-color: ${(props) =>
-    props?.complete ? colors.moola + 29 : "#1e1f22"};
+    props?.complete ? incrementum + 29 : "#1e1f22"};
   color: white;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -115,7 +115,7 @@ const TimeLineListItem = styled.li<{ complete?: boolean; current?: boolean }>`
       width: 20px;
       border-radius: 50%;
       background-color: ${(props) =>
-        props?.current ? colors.moola : "#1e1f22"};
+        props?.current ? incrementum : "#1e1f22"};
       top: 0px;
     }
     &:nth-child(odd):before {
@@ -127,7 +127,7 @@ const TimeLineListItem = styled.li<{ complete?: boolean; current?: boolean }>`
       left: -30px;
     }
     &:hover:before {
-      background-color: ${colors.moola};
+      background-color: ${incrementum};
     }
   }
 `;
@@ -148,7 +148,7 @@ const TimeLineListItemContent = styled.div`
 
 const RoadMapTitle = styled(Title)<{ complete?: boolean }>`
   font-size: 24px;
-  color: ${colors.moola};
+  color: ${incrementum};
   /* &:after {
     font-size: 16px;
     
@@ -158,16 +158,16 @@ const RoadMapTitle = styled(Title)<{ complete?: boolean }>`
 
 const Done = styled.span`
   font-size: 14px;
-  color: ${colors.moola};
+  color: ${incrementum};
   font-family: VCR;
 `;
 
 const Roadmap = () => {
   return (
     <MainContainer>
-      <div id='roadmap' />
-      <Row className='d-flex justify-content-center'>
-        <Col className='d-flex justify-content-center'>
+      <div id="roadmap" />
+      <Row className="d-flex justify-content-center">
+        <Col className="d-flex justify-content-center">
           <MissionTitle>Roadmap</MissionTitle>
         </Col>
       </Row>
