@@ -70,12 +70,12 @@ const TitleSmall = styled(Title)`
 
 const TitleAlt = styled(Title)`
   -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 2px #01fd90;
+  -webkit-text-stroke: 2px #ffd700;
 `;
 
 const TitleAltSmall = styled(TitleSmall)`
   -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 2px #01fd90;
+  -webkit-text-stroke: 2px #ffd700;
 `;
 
 const CTAButton = styled(Button)`
@@ -95,14 +95,14 @@ const Hero = () => {
           <TitleContainer>
             <Title>
               Save Time and <br></br> Earn More Yield <br></br> with{" "}
-              <TitleAlt>Moola</TitleAlt>
+              <TitleAlt>Incrementum</TitleAlt>
             </Title>
           </TitleContainer>
 
           <TitleContainerMobile>
             <TitleSmall>
               Save Time and <br></br> Earn More Yield <br></br> with{" "}
-              <TitleAltSmall>Moola</TitleAltSmall>
+              <TitleAltSmall>Incrementum</TitleAltSmall>
             </TitleSmall>
           </TitleContainerMobile>
 
@@ -114,9 +114,9 @@ const Hero = () => {
           </SubtitleContainer>
           <ButtonContainer>
             <a
-              href='https://www.pinksale.finance/#/launchpad/0x2254050a7e640C87B8198C518f86B3061A3535CB?chain=BSC'
-              target='_blank'
-              rel='noreferrer noopener'
+              href="https://www.pinksale.finance/#/launchpad/0x2254050a7e640C87B8198C518f86B3061A3535CB?chain=BSC"
+              target="_blank"
+              rel="noreferrer noopener"
             >
               <CTAButton>JOIN PRESALE</CTAButton>
             </a>

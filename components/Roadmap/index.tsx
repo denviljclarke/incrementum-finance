@@ -19,7 +19,7 @@ const MainContainer = styled(Container)`
 //   line-height: 16px;
 //   letter-spacing: 1.5px;
 //   text-transform: uppercase;
-//   color: ${incrementum};
+//   color: ${colors.incrementum};
 // `;
 
 const MissionTitle = styled(Title)`
@@ -76,12 +76,13 @@ const TimeLineList = styled.ul`
 `;
 
 const TimeLineListItem = styled.li<{ complete?: boolean; current?: boolean }>`
-  border: ${(props) => (props?.current ? "2px solid " + incrementum : "")};
+  border: ${(props) =>
+    props?.current ? "2px solid " + colors.incrementum : ""};
   /* box-shadow: ${(props) =>
-    props?.current ? "8px 16px 100px " + incrementum : ""}; */
+    props?.current ? "8px 16px 100px " + colors.incrementum : ""}; */
   padding: 20px;
   background-color: ${(props) =>
-    props?.complete ? incrementum + 29 : "#1e1f22"};
+    props?.complete ? colors.incrementum + 29 : "#1e1f22"};
   color: white;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -115,7 +116,7 @@ const TimeLineListItem = styled.li<{ complete?: boolean; current?: boolean }>`
       width: 20px;
       border-radius: 50%;
       background-color: ${(props) =>
-        props?.current ? incrementum : "#1e1f22"};
+        props?.current ? colors.incrementum : "#1e1f22"};
       top: 0px;
     }
     &:nth-child(odd):before {
@@ -127,7 +128,7 @@ const TimeLineListItem = styled.li<{ complete?: boolean; current?: boolean }>`
       left: -30px;
     }
     &:hover:before {
-      background-color: ${incrementum};
+      background-color: ${colors.incrementum};
     }
   }
 `;
@@ -148,7 +149,7 @@ const TimeLineListItemContent = styled.div`
 
 const RoadMapTitle = styled(Title)<{ complete?: boolean }>`
   font-size: 24px;
-  color: ${incrementum};
+  color: ${colors.incrementum};
   /* &:after {
     font-size: 16px;
     
@@ -158,7 +159,7 @@ const RoadMapTitle = styled(Title)<{ complete?: boolean }>`
 
 const Done = styled.span`
   font-size: 14px;
-  color: ${incrementum};
+  color: ${colors.incrementum};
   font-family: VCR;
 `;
 
@@ -187,8 +188,8 @@ const Roadmap = () => {
                   <Done>- Done</Done>
                 </div>
                 <p>
-                  Conceptualization of Moola Finance, Yield Farms Planning,
-                  Landing page launch
+                  Conceptualization of Incrementum Finance, Yield Farms
+                  Planning, Landing page launch
                 </p>
               </TimeLineListItemContent>
             </TimeLineListItem>
@@ -214,7 +215,8 @@ const Roadmap = () => {
               <TimeLineListItemContent>
                 <RoadMapTitle>Phase 3</RoadMapTitle>
                 <p>
-                  Launch of Moola farms, planning/design of BSC Dex aggregator
+                  Launch of Incrmentum farms, planning/design of BSC Dex
+                  aggregator
                 </p>
               </TimeLineListItemContent>
             </TimeLineListItem>

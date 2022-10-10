@@ -48,7 +48,7 @@ const MissionSubtitleRow = styled(Row)`
 
 const TitleAlt = styled(MissionTitle)`
   -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 2px #01fd90;
+  -webkit-text-stroke: 2px #ffd700;
 `;
 
 const SectionTitle = styled(Title)`
@@ -80,7 +80,7 @@ const Token = () => {
       <Row className="d-flex justify-content-center">
         <Col className="d-flex justify-content-center">
           <MissionTitle>
-            The <TitleAlt>$MOOLA</TitleAlt> Token
+            The <TitleAlt>$ICR</TitleAlt> Token
           </MissionTitle>
         </Col>
       </Row>
@@ -88,15 +88,15 @@ const Token = () => {
         <MissionSubtitleRow>
           <Col xs={12} md={8} xl={6} className="d-flex">
             <MissionSubtitle>
-              The $MOOLA token is redistribution token on the Binance Smart
-              Chain. Moola uses smart financial engineering to deliver rewards
-              to all holders of the token. Rewards are automatically distributed
-              to holders of the token to simplify the process of earning. Once
-              Moola farms are launched $MOOLA tokens will be able to be staked
-              for additional rewards.
+              The $ICR token is redistribution token on the Binance Smart Chain.
+              Incrementum uses smart financial engineering to deliver rewards to
+              all holders of the token. Rewards are automatically distributed to
+              holders of the token to simplify the process of earning. Once
+              Incrementum farms are launched $ICR tokens will be able to be
+              staked for additional rewards.
               <ButtonContainer>
                 <a
-                  href="https://github.com/TechRate/Smart-Contract-Audits/blob/main/November/Moola%20Finance.pdf"
+                  href="https://github.com/TechRate/Smart-Contract-Audits/blob/main/November/Incrementum%20Finance.pdf"
                   target="_blank"
                   rel="noreferrer noopener"
                 >
@@ -112,7 +112,7 @@ const Token = () => {
               <br />
               <SmallSectionTitle>8% $BTC Holder Rewards</SmallSectionTitle>
               <br />
-              8% of every $MOOLA transaction will be redistriuted to the holders
+              8% of every $ICR transaction will be redistriuted to the holders
               of the token. By just holding the token you'll recieve a share of
               $BTC that will be automatically sent to your wallet.
               <br />
