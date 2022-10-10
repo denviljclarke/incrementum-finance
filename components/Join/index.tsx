@@ -62,29 +62,25 @@ const MissionSubtitleRow = styled(Row)`
 const Join = () => {
   return (
     <MainContainer>
-      <Row className='d-flex justify-content-center'>
-        <Col className='d-flex justify-content-center'>
-          <JoinTitle>Ready to earn moola?</JoinTitle>
+      <Row className="d-flex justify-content-center">
+        <Col className="d-flex justify-content-center">
+          <JoinTitle>Ready to earn icr?</JoinTitle>
         </Col>
       </Row>
       <Container>
         <MissionSubtitleRow>
-          <Col xs={12} md={8} xl={6} className='d-flex'>
+          <Col xs={12} md={8} xl={6} className="d-flex">
             <MissionSubtitle>
-              Join our community to learn more about Moola and when we'll be
-              launching
+              Join our community to learn more about Incrmentum and when
+              we&apos;ll be launching
             </MissionSubtitle>
           </Col>
         </MissionSubtitleRow>
 
-        <Row className='d-flex justify-content-center'>
-          <Col className='d-flex justify-content-center'>
+        <Row className="d-flex justify-content-center">
+          <Col className="d-flex justify-content-center">
             <ButtonContainer>
-              <a
-                href='https://t.me/moolafinance'
-                target='_blank'
-                rel='noreferrer noopener'
-              >
+              <a href="#" target="_blank" rel="noreferrer noopener">
                 <CTAButton>JOIN TELEGRAM</CTAButton>
               </a>
             </ButtonContainer>

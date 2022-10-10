@@ -181,9 +181,9 @@ const Header = () => {
               dropdownItems={[
                 {
                   text: "Telegram",
-                  link: "https://t.me/moolafinance",
+                  link: "#",
                 },
-                { text: "Twitter", link: "https://twitter.com/moola_finance" },
+                { text: "Twitter", link: "#" },
               ]}
             >
               <>Community</>
@@ -216,24 +216,12 @@ const Header = () => {
           style={{ paddingTop: 40 }}
         >
           {renderLinkItem("START EARNING", "#", true)}
-          {renderLinkItem(
-            "TELEGRAM",
-            "https://t.me/moolafinance",
-            false,
-            false,
-            true
-          )}
-          {renderLinkItem(
-            "TWITTER",
-            "https://twitter.com/moola_finance",
-            false,
-            false,
-            true
-          )}
+          {renderLinkItem("TELEGRAM", "#", false, false, true)}
+          {renderLinkItem("TWITTER", "#", false, false, true)}
           {renderLinkItem("ROADMAP", "#roadmap", false, false, false)}
-          {/* {renderLinkItem('FAQs', '/faq', false, false, true)}
-          {renderLinkItem('POLICY', '/policy', false, false, true)}
-          {renderLinkItem('TERMS', '/terms', false, false, true)} */}
+          {renderLinkItem("FAQs", "/faq", false, false, true)}
+          {renderLinkItem("POLICY", "/policy", false, false, true)}
+          {renderLinkItem("TERMS", "/terms", false, false, true)}
         </MobileOverlayMenu>
       </MobileOnly>
     </HeaderContainer>

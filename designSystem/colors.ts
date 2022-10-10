@@ -11,7 +11,7 @@ const colors = {
   text: "#ACACAB",
   primaryText: "#FFFFFF",
   green: "#16CEB9",
-  incrementum: "#01fd90",
+  incrementum: "#FFD700",
   red: "#fc0a54",
   pillBackground: "#151413",
   tagBackground: "#1D222D",

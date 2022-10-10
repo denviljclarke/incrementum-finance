@@ -93,10 +93,10 @@ const Mission = () => {
             benefit from the product. Our aim is to simplify DeFi to enable all
             users to benefit. <br />
             <br />
-            Moola will help to supercharge your gains with new yield-farming
-            strategies that will compound your rewards automatically thus making
-            it easier to earn Moola. Use Moola farms to give your yield an extra
-            boost via xMoola token rewards.
+            Incrementum will help to supercharge your gains with new
+            yield-farming strategies that will compound your rewards
+            automatically thus making it easier to earn ICR. Use Incrementum
+            farms to give your yield an extra boost via xICR token rewards.
           </MissionSubtitle>
         </Col>
       </MissionSubtitleRow>
