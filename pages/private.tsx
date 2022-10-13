@@ -232,7 +232,7 @@ const ProgressBar = ({
   );
 };
 
-const CountDown = ({ end }) => {
+const CountDown = ({ end }: { end: number }) => {
   const [days, setDays] = React.useState(0);
   const [hours, setHours] = React.useState(0);
   const [mins, setMins] = React.useState(0);

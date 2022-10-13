@@ -22,7 +22,9 @@ const Logo = () => {
             fontSize: "2em",
           }}
         >
-          <CustomLink href="/">IF</CustomLink>
+          <CustomLink href="/">
+            <>IF</>
+          </CustomLink>
         </div>
       </LogoContainer>
     </>

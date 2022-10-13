@@ -109,8 +109,8 @@ const Token = () => {
               <SmallSectionTitle>8% $BTC Holder Rewards</SmallSectionTitle>
               <br />
               8% of every $ICR transaction will be redistriuted to the holders
-              of the token. By just holding the token you'll recieve a share of
-              $BTC that will be automatically sent to your wallet.
+              of the token. By just holding the token you&apos;ll recieve a
+              share of $BTC that will be automatically sent to your wallet.
               <br />
               <br />
               <SmallSectionTitle>3% Liquidity Fee</SmallSectionTitle>
