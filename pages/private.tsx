@@ -245,6 +245,8 @@ const CountDown = ({ end }: { end: number }) => {
     }
   }, []);
 
+  const now = new Date().getTime();
+  const timeUntilDay = end - now;
   useInterval(
     () => {
       const now = new Date().getTime();
@@ -268,6 +270,9 @@ const CountDown = ({ end }: { end: number }) => {
     isFirstRender ? 0 : 1000
   );
 
+  if (timeUntilDay < 0) {
+    return <BNBProgress>GO TIME !</BNBProgress>;
+  }
   return <BNBProgress>{`${days} : ${hours} : ${mins} : ${secs} `}</BNBProgress>;
 };
 
