@@ -162,7 +162,7 @@ const ConnectButton = () => {
   return <Button onClick={open}>Connect to a Wallet</Button>;
 };
 
-const ProgressBarWrapper = styled.div<{ hide?: boolean }>`
+const ProgressBarWrapper = styled.div`
   color: ${colors.incrementum};
   display: flex;
   flex-direction: column;
@@ -171,11 +171,6 @@ const ProgressBarWrapper = styled.div<{ hide?: boolean }>`
   gap: 8px;
   height: 54px;
   width: 100%;
-  display: ${(props) => {
-    if (props.hide) {
-      return "none";
-    }
-  }};
 
   progress {
     -webkit-appearance: none;
@@ -218,14 +213,13 @@ const ProgressBar = ({
   value,
   max = 50,
   completed,
-  loading,
 }: {
   value: number;
   max?: number;
   completed?: boolean;
 }) => {
   return (
-    <ProgressBarWrapper hide={loading}>
+    <ProgressBarWrapper>
       {completed ? (
         <BNBProgress>Sold Out</BNBProgress>
       ) : (
@@ -280,7 +274,7 @@ const CountDown = ({ end }) => {
 // const CONTRACT_ADDRESS = process.env.NODE_ENV === "development" ? PIncrementum_CONTRACT_ADDRESS
 const PIncrementum_CONTRACT_ADDRESS =
   "0xFA45020d7d00f4DAEa5E9dc4d0DBAf14bddb7B1e";
-const dDay = new Date().getTime() + 10000;
+const dDay = new Date().getTime() + 5000;
 // process.env.NODE_ENV === 'development'
 //   ? new Date().getTime() + 10000
 //   : new Date(Date.UTC(2021, 10, 19, 19)).getTime();
@@ -325,6 +319,7 @@ const PrivateSale = () => {
     //Mocking everything
     setParsedIncrementumSold((old) => old + BNBAmount);
     setHasClaimed(true);
+    setPIncrementumBalance(BNBAmount * 6000000);
     // parsedIncrementumSold += BNBAmount;
     // console.log(parsedIncrementumSold);
     // const pIncrementumABI = [
@@ -493,43 +488,53 @@ const PrivateSale = () => {
           1BNB = 6,000,000 $pIncrementum
         </div>
         <Spacer size={32} />
-        {isLoading ? null : (
-          <>
-            {goTime || completed ? (
-              <ProgressBar
-                completed={completed}
-                value={parsedIncrementumSold}
-                loading={isLoading}
-              />
-            ) : (
-              <CountDown end={dDay} />
-            )}
-          </>
-        )}
+        {(() => {
+          if (isLoading) {
+            return null;
+          }
+
+          if (!isConnected || !goTime) {
+            return <CountDown end={dDay} />;
+          }
+
+          if (parsedIncrementumSold < maxIncrementum && hasClaimed) {
+            return null;
+          }
+
+          return (
+            <ProgressBar completed={completed} value={parsedIncrementumSold} />
+          );
+        })()}
         <Spacer size={32} />
-        {goTime && canClaim && !completed && isConnected ? (
+        {goTime && !completed && isConnected && !hasClaimed ? (
           <div style={{ display: "flex", gap: "32px" }}>
             <Button onClick={() => claimToken(1)}>1 BNB</Button>
             {maxIncrementum - parsedIncrementumSold < 2 ? null : (
               <Button onClick={() => claimToken(2)}>2 BNB</Button>
             )}
           </div>
-        ) : null}
-        {!canClaim ? (
+        ) : (
           <>
-            <PrivateSaleQuestionTitle>Congratulations</PrivateSaleQuestionTitle>
-            <br />
-            <MissionSubtitle>
-              You&apos;re officially an early supporter of Incrementum Finance.
-              Thanks for your support & welcome to the community!
-            </MissionSubtitle>
-            <br />
-            <MissionSubtitle>
-              Your $pIncrementum balance: {pIncrementumBalance}
-            </MissionSubtitle>
-            <br />
+            {hasClaimed ? (
+              <>
+                <PrivateSaleQuestionTitle>
+                  Congratulations
+                </PrivateSaleQuestionTitle>
+                <br />
+                <MissionSubtitle>
+                  You&apos;re officially an early supporter of Incrementum
+                  Finance. Thanks for your support & welcome to the community!
+                </MissionSubtitle>
+                <br />
+                <MissionSubtitle>
+                  Your $pIncrementum balance: {pIncrementumBalance}
+                </MissionSubtitle>
+                <br />
+              </>
+            ) : null}
           </>
-        ) : null}
+        )}
+
         <ConnectButton />
       </SaleCard>
     </MainContainer>

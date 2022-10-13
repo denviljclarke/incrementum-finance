@@ -95,11 +95,7 @@ const Token = () => {
               Incrementum farms are launched $ICR tokens will be able to be
               staked for additional rewards.
               <ButtonContainer>
-                <a
-                  href="https://github.com/TechRate/Smart-Contract-Audits/blob/main/November/Incrementum%20Finance.pdf"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
+                <a href="#">
                   <CTAButton>View Audit</CTAButton>
                 </a>
               </ButtonContainer>

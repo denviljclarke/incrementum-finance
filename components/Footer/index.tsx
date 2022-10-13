@@ -105,14 +105,18 @@ const DesktopFooter = () => {
           {renderLinkItem("FAQS", "/faq")}
           {renderLinkItem("TERMS", "/terms")}
           {renderLinkItem("POLICY", "/policy")}
-          {/* {renderLinkItem("DOCS", "#")} */}
+          {renderLinkItem("DOCS", "#")}
         </LeftContainer>
         <div className="d-flex flex-row">
           {renderLinkItem("PRIVATE SALE", "/private")}
-          {renderLinkItem("TELEGRAM", "https://t.me/moolafinance", true)}
-          {/* {renderLinkItem("DISCORD", "#", true)} */}
-          {/* {renderLinkItem("TWITTER", "https://twitter.com/moola_finance", true)} */}
-          {renderLinkItem("GITHUB", "https://github.com/moola-finance", true)}
+          {renderLinkItem("TELEGRAM", "#", true)}
+          {renderLinkItem("DISCORD", "#", true)}
+          {renderLinkItem("TWITTER", "#", true)}
+          {renderLinkItem(
+            "GITHUB",
+            "https://github.com/denviljclarke/incrementum-finance",
+            true
+          )}
         </div>
       </FooterContainer>
 
@@ -126,7 +130,7 @@ const DesktopFooter = () => {
           {renderLinkItem("TWITTER", "#", true)}
           {renderLinkItem(
             "GITHUB",
-            "https://github.com/incrementum-finance",
+            "https://github.com/denviljclarke/incrementum-finance",
             true
           )}
         </MobileFooterRow>
