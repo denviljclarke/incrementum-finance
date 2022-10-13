@@ -41,7 +41,13 @@ export default class MyDocument extends Document {
       <Html lang="en" dir="ltr">
         <Head>
           <meta charSet="utf-8" />
-          <link rel="stylesheet" href="/fonts/Gameplay.ttf" />
+          <link
+            rel="preload"
+            href="/fonts/Gameplay.ttf"
+            as="font"
+            type="font"
+            crossOrigin="anonymous"
+          />
         </Head>
         <body>
           <Main />
