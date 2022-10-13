@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 @font-face {
   font-family: "VCR";
-  src: local("VCR"), url("../public/fonts/Gameplay.ttf") format("truetype");
+  src: local("VCR"), url("/fonts/Gameplay.ttf") format("truetype");
 }
 
 html,
