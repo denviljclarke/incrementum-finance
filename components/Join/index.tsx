@@ -81,7 +81,7 @@ const Join = () => {
           <Col className="d-flex justify-content-center">
             <ButtonContainer>
               <a href="#" target="_blank" rel="noreferrer noopener">
-                <CTAButton>JOIN TELEGRAM</CTAButton>
+                <CTAButton>JOIN THE COMMUNITY</CTAButton>
               </a>
             </ButtonContainer>
           </Col>

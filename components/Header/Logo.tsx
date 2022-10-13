@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import colors from "../../designSystem/colors";
 import CustomLink from "../Common/Link";
 
 // import { default as AppLogo } from "../../assets/icons/logo";
@@ -12,7 +13,17 @@ const Logo = () => {
   return (
     <>
       <LogoContainer>
-        <CustomLink href="/">HI</CustomLink>
+        <div
+          style={{
+            color: colors.incrementum,
+            fontFamily: "Helvetica Neue",
+            fontWeight: "bold",
+            fontStyle: "italic",
+            fontSize: "2em",
+          }}
+        >
+          <CustomLink href="/">IF</CustomLink>
+        </div>
       </LogoContainer>
     </>
   );

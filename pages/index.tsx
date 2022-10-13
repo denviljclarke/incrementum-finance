@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Hero from "../components/Hero";
+import Join from "../components/Join";
 import Mission from "../components/Mission";
 import Roadmap from "../components/Roadmap";
 import Token from "../components/Token";
@@ -15,7 +16,7 @@ const Home: NextPage = () => {
         <Mission />
         <Token />
         <Roadmap />
-        {/* <Join /> */}
+        <Join />
       </div>
     </>
   );

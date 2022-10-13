@@ -7,6 +7,7 @@ import { Container } from "react-bootstrap";
 
 import sizes from "../../designSystem/sizes";
 import colors from "../../designSystem/colors";
+import Link from "next/link";
 
 const MainContainer = styled(Container)`
   height: 640px;
@@ -113,13 +114,9 @@ const Hero = () => {
             </SubTitle>
           </SubtitleContainer>
           <ButtonContainer>
-            <a
-              href="https://www.pinksale.finance/#/launchpad/0x2254050a7e640C87B8198C518f86B3061A3535CB?chain=BSC"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              <CTAButton>JOIN PRESALE</CTAButton>
-            </a>
+            <Link href="/private">
+              <CTAButton>JOIN PRIVATE SALE</CTAButton>
+            </Link>
           </ButtonContainer>
         </Col>
       </TextContainer>

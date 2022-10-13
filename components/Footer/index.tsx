@@ -34,6 +34,7 @@ const LinkItem = styled.div`
 
   &:hover {
     opacity: 1;
+    cursor: pointer;
   }
 `;
 

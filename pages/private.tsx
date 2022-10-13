@@ -4,16 +4,26 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Container } from "react-bootstrap";
 import { Contract, ethers } from "ethers";
+import {
+  useConnectModal,
+  useContract,
+  useAccount,
+  useSwitchNetwork,
+  useNetwork,
+  useContractRead,
+} from "@web3modal/react";
+import { JsonRpcProvider } from "@ethersproject/providers";
 
+import colors from "../designSystem/colors";
 import { Title, BaseText } from "../designSystem";
 import sizes from "../designSystem/sizes";
-import colors from "../designSystem/colors";
-import { useWeb3 } from "../contexts/web3-context";
-import usePullUp from "../hooks/usePullUp";
+
 import useInterval from "../hooks/useInterval";
+import usePullUp from "../hooks/usePullUp";
+
 import Spacer from "../components/Spacer";
-import { JsonRpcProvider } from "@ethersproject/providers";
 import theme from "../designSystem/theme";
+import pIncrementumABI from "../web3/pIncrementumAbi.json";
 
 const MainContainer = styled(Container)`
   padding-top: 40px;
@@ -127,16 +137,32 @@ const SaleCard = styled.div`
 `;
 
 const ConnectButton = () => {
-  const { connect, address, loading } = useWeb3();
+  const { address, isConnected, isConnecting, isDisconnected, status } =
+    useAccount();
+  const { chain } = useNetwork();
+  const { isOpen, open, close } = useConnectModal();
+  const { switchNetwork } = useSwitchNetwork();
 
-  if (address || loading) {
+  if (!status) {
     return null;
   }
 
-  return <Button onClick={connect}>Connect to a Wallet</Button>;
+  if (isConnected) {
+    return null;
+  }
+
+  if (isConnected && chain?.unsupported) {
+    return (
+      <Button onClick={() => switchNetwork({ chainId: 56 })}>
+        Wrong Network - Switch to Binance Smart Chain
+      </Button>
+    );
+  }
+
+  return <Button onClick={open}>Connect to a Wallet</Button>;
 };
 
-const ProgressBarWrapper = styled.div`
+const ProgressBarWrapper = styled.div<{ hide?: boolean }>`
   color: ${colors.incrementum};
   display: flex;
   flex-direction: column;
@@ -145,6 +171,11 @@ const ProgressBarWrapper = styled.div`
   gap: 8px;
   height: 54px;
   width: 100%;
+  display: ${(props) => {
+    if (props.hide) {
+      return "none";
+    }
+  }};
 
   progress {
     -webkit-appearance: none;
@@ -187,13 +218,14 @@ const ProgressBar = ({
   value,
   max = 50,
   completed,
+  loading,
 }: {
   value: number;
   max?: number;
   completed?: boolean;
 }) => {
   return (
-    <ProgressBarWrapper>
+    <ProgressBarWrapper hide={loading}>
       {completed ? (
         <BNBProgress>Sold Out</BNBProgress>
       ) : (
@@ -206,9 +238,7 @@ const ProgressBar = ({
   );
 };
 
-const CountDown = ({
-  dDay = new Date(Date.UTC(2021, 10, 19, 18)).getTime(),
-}) => {
+const CountDown = ({ end }) => {
   const [days, setDays] = React.useState(0);
   const [hours, setHours] = React.useState(0);
   const [mins, setMins] = React.useState(0);
@@ -224,7 +254,7 @@ const CountDown = ({
   useInterval(
     () => {
       const now = new Date().getTime();
-      const timeUntilDay = dDay - now;
+      const timeUntilDay = end - now;
 
       const days = Math.floor(timeUntilDay / (1000 * 60 * 60 * 24));
       const hours = Math.floor(
@@ -250,134 +280,164 @@ const CountDown = ({
 // const CONTRACT_ADDRESS = process.env.NODE_ENV === "development" ? PIncrementum_CONTRACT_ADDRESS
 const PIncrementum_CONTRACT_ADDRESS =
   "0xFA45020d7d00f4DAEa5E9dc4d0DBAf14bddb7B1e";
-const dDay = new Date(Date.UTC(2021, 10, 19, 19)).getTime();
+const dDay = new Date().getTime() + 10000;
 // process.env.NODE_ENV === 'development'
 //   ? new Date().getTime() + 10000
 //   : new Date(Date.UTC(2021, 10, 19, 19)).getTime();
-
+const maxIncrementum = 50;
 const PrivateSale = () => {
   usePullUp();
-  const { signer, address } = useWeb3();
 
   const [goTime, setGoTime] = React.useState(false);
-  const [IncrementumSold, setIncrementumSold] = React.useState(0);
+  const [hasClaimed, setHasClaimed] = React.useState(false);
   const [canClaim, setCanClaim] = React.useState(true);
   const [delay] = React.useState(1000);
   const [pause, setPause] = React.useState(false);
   const [pIncrementumBalance, setPIncrementumBalance] = React.useState(0);
-  const completed = true;
+  const { address, isConnected, isConnecting, isDisconnected } = useAccount();
 
-  const claimToken = async (BNBAmount: string) => {
-    const pIncrementumABI = [
-      "function claim() external payable",
-      "function getTotalRaised() external view returns (uint256)",
-    ];
+  const pubProvider = new JsonRpcProvider("https://bsc-dataseed.binance.org/");
+  const {
+    data: incrementumSold = 0,
+    error,
+    isLoading,
+    refetch,
+  } = useContractRead({
+    addressOrName: PIncrementum_CONTRACT_ADDRESS,
+    contractInterface: pIncrementumABI,
+    functionName: "getTotalRaised",
+    // watch: true,
+  });
 
-    if (PIncrementum_CONTRACT_ADDRESS && signer) {
-      const pIncrementumContract = new Contract(
-        PIncrementum_CONTRACT_ADDRESS,
-        pIncrementumABI,
-        signer
-      );
+  const now = new Date().getTime();
+  const [parsedIncrementumSold, setParsedIncrementumSold] = React.useState(0);
 
-      try {
-        const result = await pIncrementumContract.claim({
-          value: ethers.utils.parseEther(BNBAmount),
-        });
-        setCanClaim(false);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
-  const updateProgress = async () => {
-    const pIncrementumABI = [
-      "function claim() external payable",
-      "function getTotalRaised() external view returns (uint256)",
-      "function hasClaimed() external view returns (bool)",
-    ];
-
-    const pubProvider = new JsonRpcProvider(
-      "https://bsc-dataseed.binance.org/"
+  React.useEffect(() => {
+    setParsedIncrementumSold(
+      parseInt(ethers.utils.formatEther(incrementumSold)) - 1 // Off by one error in original contract
     );
+  }, [incrementumSold]);
 
-    if (PIncrementum_CONTRACT_ADDRESS) {
-      const pIncrementumContract = new Contract(
-        PIncrementum_CONTRACT_ADDRESS,
-        pIncrementumABI,
-        pubProvider
-      );
+  const completed =
+    parsedIncrementumSold >= maxIncrementum && now > dDay && hasClaimed;
 
-      try {
-        const totalRaised = ethers.BigNumber.from(
-          await pIncrementumContract.getTotalRaised()
-        );
-        setIncrementumSold(parseInt(ethers.utils.formatEther(totalRaised)));
-      } catch (error) {
-        setPause(true);
-        console.log(error);
-      }
-    }
+  const claimToken = async (BNBAmount: number) => {
+    //Mocking everything
+    setParsedIncrementumSold((old) => old + BNBAmount);
+    setHasClaimed(true);
+    // parsedIncrementumSold += BNBAmount;
+    // console.log(parsedIncrementumSold);
+    // const pIncrementumABI = [
+    //   "function claim() external payable",
+    //   "function getTotalRaised() external view returns (uint256)",
+    // ];
+    // if (pIncrementumContract) {
+    //   // const pIncrementumContract = new Contract(
+    //   //   PIncrementum_CONTRACT_ADDRESS,
+    //   //   pIncrementumABI,
+    //   //   signer
+    //   // );
+    //   try {
+    //     const result = await pIncrementumContract.claim({
+    //       value: ethers.utils.parseEther(BNBAmount),
+    //     });
+    //     setCanClaim(false);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
   };
 
-  const updateCanClaim = async () => {
-    const pIncrementumABI = [
-      "function claim() external payable",
-      "function getTotalRaised() external view returns (uint256)",
-      "function hasClaimed() external view returns (bool)",
-    ];
+  // const updateProgress = async () => {
+  //   const pIncrementumABI = [
+  //     "function claim() external payable",
+  //     "function getTotalRaised() external view returns (uint256)",
+  //     "function hasClaimed() external view returns (bool)",
+  //   ];
 
-    if (PIncrementum_CONTRACT_ADDRESS && signer) {
-      const pIncrementumContract = new Contract(
-        PIncrementum_CONTRACT_ADDRESS,
-        pIncrementumABI,
-        signer
-      );
-      try {
-        const hasClaimed = await pIncrementumContract.hasClaimed();
-        setCanClaim(!hasClaimed);
-      } catch (error) {
-        setPause(true);
-        console.log(error);
-      }
-    }
-  };
+  //   const pubProvider = new JsonRpcProvider(
+  //     "https://bsc-dataseed.binance.org/"
+  //   );
 
-  const updateBalance = async () => {
-    const pIncrementumABI = [
-      "function balanceOf(address account) external view returns (uint256)",
-    ];
+  //   if (pIncrementumContract) {
+  //     // const pIncrementumContract = new Contract(
+  //     //   PIncrementum_CONTRACT_ADDRESS,
+  //     //   pIncrementumABI,
+  //     //   pubProvider
+  //     // );
 
-    if (PIncrementum_CONTRACT_ADDRESS && signer) {
-      const pIncrementumContract = new Contract(
-        PIncrementum_CONTRACT_ADDRESS,
-        pIncrementumABI,
-        signer
-      );
-      try {
-        const balance = await pIncrementumContract.balanceOf(address);
-        setPIncrementumBalance(parseInt(ethers.utils.formatEther(balance)));
-      } catch (error) {
-        setPause(true);
-      }
-    }
-  };
+  //     try {
+  //       const totalRaised = ethers.BigNumber.from(
+  //         await pIncrementumContract.getTotalRaised()
+  //       );
+  //       setIncrementumSold(parseInt(ethers.utils.formatEther(totalRaised)) + 1); // Contract off by one error
+  //       if (IncrementumSold >= maxIncrementum) {
+  //         setCompleted(true);
+  //       }
+  //     } catch (error) {
+  //       setPause(true);
+  //       console.log(error);
+  //     }
+  //   }
+  // };
 
-  useInterval(
-    () => {
-      updateProgress();
-    },
-    completed ? null : delay
-  );
+  // const updateCanClaim = async () => {
+  //   const pIncrementumABI = [
+  //     "function claim() external payable",
+  //     "function getTotalRaised() external view returns (uint256)",
+  //     "function hasClaimed() external view returns (bool)",
+  //   ];
 
-  useInterval(
-    () => {
-      updateBalance();
-      updateCanClaim();
-    },
-    canClaim ? delay : null
-  );
+  //   if (PIncrementum_CONTRACT_ADDRESS && signer) {
+  //     const pIncrementumContract = new Contract(
+  //       PIncrementum_CONTRACT_ADDRESS,
+  //       pIncrementumABI,
+  //       signer
+  //     );
+  //     try {
+  //       const hasClaimed = await pIncrementumContract.hasClaimed();
+  //       setCanClaim(!hasClaimed);
+  //     } catch (error) {
+  //       setPause(true);
+  //       console.log(error);
+  //     }
+  //   }
+  // };
+
+  // const updateBalance = async () => {
+  //   const pIncrementumABI = [
+  //     "function balanceOf(address account) external view returns (uint256)",
+  //   ];
+
+  //   if (PIncrementum_CONTRACT_ADDRESS && signer) {
+  //     const pIncrementumContract = new Contract(
+  //       PIncrementum_CONTRACT_ADDRESS,
+  //       pIncrementumABI,
+  //       signer
+  //     );
+  //     try {
+  //       const balance = await pIncrementumContract.balanceOf(address);
+  //       setPIncrementumBalance(parseInt(ethers.utils.formatEther(balance)));
+  //     } catch (error) {
+  //       setPause(true);
+  //     }
+  //   }
+  // };
+
+  // useInterval(
+  //   () => {
+  //     updateProgress();
+  //   },
+  //   completed ? null : delay
+  // );
+
+  // useInterval(
+  //   () => {
+  //     updateBalance();
+  //     updateCanClaim();
+  //   },
+  //   canClaim ? delay : null
+  // );
 
   useInterval(
     () => {
@@ -405,7 +465,7 @@ const PrivateSale = () => {
         <Col xs={12} md={8} xl={6} className="d-flex">
           <MissionSubtitle>
             Welcome to the Incrementum private sale, thank you for being an
-            early supporter. By participating in this sale you'll become an
+            early supporter. By participating in this sale you&apos;ll become an
             early stage investor and will benefit by buying the $Incrementum
             token at the best price. Participating will also help fuel the
             projects marketing efforts up until our presale on Pinksale.
@@ -433,16 +493,26 @@ const PrivateSale = () => {
           1BNB = 6,000,000 $pIncrementum
         </div>
         <Spacer size={32} />
-        {goTime || completed ? (
-          <ProgressBar completed={completed} value={IncrementumSold} />
-        ) : (
-          <CountDown dDay={dDay} />
+        {isLoading ? null : (
+          <>
+            {goTime || completed ? (
+              <ProgressBar
+                completed={completed}
+                value={parsedIncrementumSold}
+                loading={isLoading}
+              />
+            ) : (
+              <CountDown end={dDay} />
+            )}
+          </>
         )}
         <Spacer size={32} />
-        {address && goTime && canClaim && !completed ? (
+        {goTime && canClaim && !completed && isConnected ? (
           <div style={{ display: "flex", gap: "32px" }}>
-            <Button onClick={() => claimToken("1")}>1 BNB</Button>
-            <Button onClick={() => claimToken("2")}>2 BNB</Button>
+            <Button onClick={() => claimToken(1)}>1 BNB</Button>
+            {maxIncrementum - parsedIncrementumSold < 2 ? null : (
+              <Button onClick={() => claimToken(2)}>2 BNB</Button>
+            )}
           </div>
         ) : null}
         {!canClaim ? (
@@ -460,7 +530,7 @@ const PrivateSale = () => {
             <br />
           </>
         ) : null}
-        {<ConnectButton />}
+        <ConnectButton />
       </SaleCard>
     </MainContainer>
   );
